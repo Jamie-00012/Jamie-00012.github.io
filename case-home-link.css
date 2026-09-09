@@ -1,0 +1,49 @@
+.case-home-link {
+  position: fixed;
+  right: max(24px, env(safe-area-inset-right));
+  top: calc(8px + env(safe-area-inset-top, 0px));
+  z-index: 1000;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  box-sizing: border-box;
+  min-height: 48px;
+  padding: 12px 20px;
+  border: 1px solid rgba(255, 255, 255, .28);
+  border-radius: 999px;
+  background: #ff4b00;
+  color: #fff;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .18);
+  font: 500 14px/1.4 "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+  letter-spacing: 0;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color .2s ease;
+}
+
+.case-home-link:visited { color: #fff; }
+.case-home-link:hover { background: #d83f00; color: #fff; }
+.case-home-link:focus-visible { outline: 3px solid #162b69; outline-offset: 4px; }
+
+/* Keep the original navigation space while replacing its return action. */
+.case-shell-header > a:last-child,
+.brand-reference-nav > a:last-child,
+.publication-nav > a:last-child,
+.case-nav > a:last-child,
+.portfolio-fixed-header > a:last-child {
+  visibility: hidden;
+}
+
+@media (max-width: 640px) {
+  .case-home-link {
+    right: max(16px, env(safe-area-inset-right));
+    top: calc(7px + env(safe-area-inset-top, 0px));
+    min-height: 44px;
+    padding: 10px 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-home-link { transition: none; }
+}

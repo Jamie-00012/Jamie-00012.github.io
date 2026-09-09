@@ -1,0 +1,159 @@
+/* Shared interaction layer for the static portfolio. */
+:root {
+  --portfolio-orange: #ff5a12;
+  --glow-edge: 28;
+  --glow-radius: 34px;
+}
+
+/* One navigation treatment across the homepage and every case page. */
+.site-header,
+.case-shell-header,
+.brand-reference-nav,
+.publication-nav,
+.case-nav,
+.portfolio-fixed-header {
+  position: fixed !important;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: auto !important;
+  margin: 0 !important;
+  min-height: 64px;
+  padding: 0 var(--pad, 6vw) !important;
+  background: rgba(2, 8, 23, .9);
+  border-bottom: 1px solid rgba(255, 255, 255, .18) !important;
+  color: #fff !important;
+  backdrop-filter: blur(18px) saturate(1.08);
+}
+
+.site-header { height: 70px; }
+.case-shell-header,
+.brand-reference-nav,
+.publication-nav,
+.case-nav,
+.portfolio-fixed-header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 22px; }
+.site-header .brand,
+.case-shell-header .brand,
+.brand-reference-nav a,
+.publication-nav a,
+.case-nav a,
+.portfolio-fixed-header a { color: #fff !important; text-decoration: none; }
+.site-header nav { color: rgba(255, 255, 255, .72); }
+.site-header .contact-pill { border-color: rgba(255, 255, 255, .5); color: #fff; }
+body.case-page,
+body.brand-reference-page,
+body.publication-reference-page,
+body.case-package,
+body.watch-page { padding-top: 64px; }
+.site-header + main,
+.case-shell-header + h1,
+.brand-reference-nav + main,
+.publication-nav + main,
+.case-nav + main,
+.portfolio-fixed-header + main { padding-top: 0; }
+
+/* ReactBits-style staggered text, implemented without a framework dependency. */
+.staggered-text { text-wrap: pretty; }
+.staggered-text .staggered-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translate3d(0, .65em, 0);
+  filter: blur(7px);
+  transition: opacity 560ms cubic-bezier(.22, 1, .36, 1), transform 560ms cubic-bezier(.22, 1, .36, 1), filter 560ms ease;
+  transition-delay: calc(var(--stagger-index) * 34ms);
+  will-change: opacity, transform, filter;
+}
+.staggered-text.is-staggered-visible .staggered-word {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .staggered-text .staggered-word { opacity: 1; transform: none; filter: none; transition: none; }
+}
+
+/* Cursor-directed BorderGlow adapted to the existing image cards. */
+.border-glow-card {
+  --edge-proximity: 0;
+  --cursor-angle: 45deg;
+  --edge-sensitivity: var(--glow-edge);
+  --color-sensitivity: calc(var(--edge-sensitivity) + 20);
+  --border-radius: inherit;
+  --glow-padding: var(--glow-radius);
+  --cone-spread: 25;
+  position: relative;
+  isolation: isolate;
+  overflow: visible !important;
+  transform: translate3d(0, 0, .01px);
+}
+.border-glow-card::before,
+.border-glow-card::after,
+.border-glow-card > .edge-light {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--border-radius);
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+.border-glow-card:hover::before,
+.border-glow-card:hover::after,
+.border-glow-card:hover > .edge-light { opacity: 1; }
+.border-glow-card::before {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(transparent 0 100%) padding-box,
+    radial-gradient(at 80% 55%, #ffb36b 0, transparent 50%) border-box,
+    radial-gradient(at 69% 34%, #ff5a12 0, transparent 50%) border-box,
+    radial-gradient(at 8% 6%, #ffd166 0, transparent 50%) border-box,
+    radial-gradient(at 41% 38%, #6de0ff 0, transparent 50%) border-box,
+    radial-gradient(at 86% 85%, #4bb3fd 0, transparent 50%) border-box,
+    radial-gradient(at 82% 18%, #fff1a8 0, transparent 50%) border-box,
+    linear-gradient(#ff5a12 0 100%) border-box;
+  mask-image: conic-gradient(from var(--cursor-angle) at center, black calc(var(--cone-spread) * 1%), transparent calc((var(--cone-spread) + 15) * 1%), transparent calc((100 - var(--cone-spread) - 15) * 1%), black calc((100 - var(--cone-spread)) * 1%));
+  opacity: calc((var(--edge-proximity) - var(--color-sensitivity)) / (100 - var(--color-sensitivity)));
+}
+.border-glow-card::after {
+  inset: -1px;
+  border: 1px solid rgba(255, 255, 255, .25);
+  box-shadow: 0 0 0 1px rgba(255, 90, 18, .12), 0 0 26px rgba(255, 90, 18, .16);
+  opacity: calc((var(--edge-proximity) - var(--edge-sensitivity)) / (100 - var(--edge-sensitivity)));
+}
+.border-glow-card > .edge-light {
+  inset: calc(var(--glow-padding) * -1);
+  z-index: 3;
+  mask-image: conic-gradient(from var(--cursor-angle) at center, black 2.5%, transparent 10%, transparent 90%, black 97.5%);
+  opacity: calc((var(--edge-proximity) - var(--edge-sensitivity)) / (100 - var(--edge-sensitivity)));
+}
+.border-glow-card > .edge-light::before {
+  content: "";
+  position: absolute;
+  inset: var(--glow-padding);
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255, 220, 180, .95), inset 0 0 12px rgba(255, 90, 18, .48), 0 0 24px rgba(255, 90, 18, .35);
+}
+.border-glow-card > img,
+.border-glow-card > .shade,
+.border-glow-card > .secondary-card-shade { border-radius: inherit; }
+@media (max-width: 640px) {
+  .site-header,
+  .case-shell-header,
+  .brand-reference-nav,
+  .publication-nav,
+  .case-nav,
+  .portfolio-fixed-header { min-height: 58px; padding-inline: 20px !important; }
+  .site-header { height: 62px; }
+  .site-header nav { display: none; }
+  .case-shell-header > span,
+  .brand-reference-nav span,
+  .publication-nav p,
+  .case-nav p { display: none; }
+  .case-shell-header,
+  .brand-reference-nav,
+  .publication-nav,
+  .case-nav,
+  .portfolio-fixed-header { grid-template-columns: 1fr auto; }
+}
