@@ -12,6 +12,8 @@ body[data-build="four-case-1"] #works.works-reference .project-card { position:r
 body[data-build="four-case-1"] #works.works-reference .project-card .project-copy { position:absolute;left:24px;right:18px;bottom:10px;transform:none; }
 #works.works-reference .project-copy p { font-size:16px;line-height:1.2;letter-spacing:-.04em;margin:0 0 5px;color:#fff; }
 #works.works-reference .project-copy h3 { font-size:26px;font-weight:700;line-height:1;letter-spacing:-.04em;max-width:13ch;margin:0;min-height:52px; }
+#works.works-reference .project-copy p,
+#works.works-reference .project-copy h3 { transform:translateY(20px); }
 body[data-build="four-case-1"] #works.works-reference .project-copy > span { display:inline-flex;align-items:center;justify-content:center;border:0;background:#ff4b00;border-radius:30px;color:#fff;min-width:143px;min-height:44px;padding:10px 22px;margin-top:20px;font-size:18px;letter-spacing:-.02em;line-height:1.2; }
 body[data-build="four-case-1"] #works.works-reference .project-copy > span::after { display:none; }
 #works.works-reference .project-card:hover .project-copy > span { background:#ff6420; }
