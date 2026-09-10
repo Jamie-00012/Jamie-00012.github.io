@@ -58,6 +58,11 @@ body[data-build="four-case-1"] #about .about-reference-screen[data-static-sectio
   margin-top: 0;
 }
 
+body[data-build="four-case-1"] #works.works-reference[data-static-section] .project-copy > .portfolio-cta {
+  position: relative;
+  top: -10px;
+}
+
 body[data-build="four-case-1"] #about .about-reference-screen[data-static-section] .about-reference-more.portfolio-cta:hover,
 body[data-build="four-case-1"] #works.works-reference[data-static-section] .project-card:hover .portfolio-cta,
 body[data-build="four-case-1"] #works-secondary.works-secondary-page[data-static-section] a:hover .portfolio-cta {
